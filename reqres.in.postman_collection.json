@@ -1,0 +1,206 @@
+{
+	"info": {
+		"_postman_id": "f44219d7-f4ee-42d0-94b5-e988cb7e9f1f",
+		"name": "reqres.in",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14574991"
+	},
+	"item": [
+		{
+			"name": "add user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Success post request\", function (){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201])\r",
+							"})\r",
+							"\r",
+							"var JsonObject = JSON.parse(responseBody)\r",
+							"pm.collectionVariables.set(\"user_id_collection\",JsonObject.id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"leader\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get list users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Success get request\", function (){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201])\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}?page=1",
+					"host": [
+						"{{url}}"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get single user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Success get request\", function (){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201])\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Your test name\", function () {\r",
+							"        var jsonData = pm.response.json();\r",
+							"        //console.log(jsonData.data[\"id\"])\r",
+							"        pm.expect(jsonData.data[\"id\"]).to.eql(pm.collectionVariables.get(\"user_id_collection\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{user_id_collection}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{user_id_collection}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Success post request\", function (){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201])\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"zion resident\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Success delete request\", function (){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204])\r",
+							"})\r",
+							"\r",
+							"pm.collectionVariables.unset(\"user_id_collection\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://reqres.in/api/users",
+			"type": "string"
+		}
+	]
+}
