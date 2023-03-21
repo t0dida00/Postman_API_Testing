@@ -15,3 +15,11 @@ Move to file directory:
 ```
 cd Postman_API_Testing 
 ```
+Install Newman:
+```
+npm i -g newman
+```
+Run collection tests:
+```
+newman run reqres.in.postman_collection.json
+```
